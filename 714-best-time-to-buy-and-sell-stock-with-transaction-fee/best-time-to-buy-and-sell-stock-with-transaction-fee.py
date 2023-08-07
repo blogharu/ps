@@ -12,5 +12,8 @@ class Solution:
                 else:
                     answer = max(answer, -prices[i] + get_answer(i+1, not has_stock))
             return answer
+        for i in range(len(prices)-1, -1, -1):
+            get_answer(i, True)
+            get_answer(i, False)
         return get_answer(0, False)
         
