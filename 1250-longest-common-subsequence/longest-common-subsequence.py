@@ -24,4 +24,7 @@ class Solution:
                         answer = max(answer, 1 + get_answer(next_i+1, j+1))
                 cache[(i,j)] = answer
             return cache[(i,j)]
+        for i in range(len(text1)-1,-1):
+            for j in range(len(text2)-1,-1,-1):
+                get_answer(i, j)
         return get_answer(0, 0)
