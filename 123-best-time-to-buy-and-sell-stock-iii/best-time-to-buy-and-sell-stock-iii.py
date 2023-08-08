@@ -1,5 +1,3 @@
-from functools import cache
-
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         @cache
