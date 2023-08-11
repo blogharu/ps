@@ -1,10 +1,11 @@
+from collections import defaultdict
 from heapq import heappush, heappop
 
 class LFUCache:
     def __init__(self, capacity: int):        
         self._capacity = capacity
         self._cache = {}
-        self._lfu = {}
+        self._lfu = defaultdict(int)
         self._lfu_heap = []
         self._count = 0
 
@@ -31,8 +32,6 @@ class LFUCache:
                         break
                 del self._lfu[c]
                 del self._cache[c]
-            self._lfu[key] = 1
-            heappush(self._lfu_heap, (1, self._count, key))
-            self._count += 1
+            self._update(key)
             self._cache[key] = value
         
