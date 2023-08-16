@@ -5,4 +5,6 @@ class Solution:
         while i < len(nums) and i <= max_jump:
             max_jump = max(i+nums[i], max_jump)
             i += 1
-        return max_jump >= len(nums) - 1
+            if max_jump >= len(nums) - 1:
+                return True
+        return False
