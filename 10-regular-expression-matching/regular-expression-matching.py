@@ -1,3 +1,5 @@
+from functools import cache
+
 class Solution:
     def isMatch(self, s: str, p: str) -> bool:
         queries = []
@@ -13,6 +15,7 @@ class Solution:
                 temp.append(c)
         if temp:
             queries.append("".join(temp))
+        @cache
         def get_answer(si, qi):
             if qi == len(queries):
                 return si == len(s) and qi == len(queries)
