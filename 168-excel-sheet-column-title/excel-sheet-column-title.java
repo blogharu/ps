@@ -1,24 +1,19 @@
 class Solution {
-    public String convertToTitle(int columnNumber) {
-        Deque<String> deque = new LinkedList<>();
-        int length = 1;
-        int check = 26;
-        columnNumber--;
-        for (; length < 7; length++) {
-            if (columnNumber >= check) {
-                columnNumber -= check;
-                check *= 26;
-                continue;
-            }
-            break;
+    public String convertToTitle(int n) {
+        
+        StringBuilder sb = new StringBuilder();
+
+        while(n > 0){
+
+            n--;
+            char c = (char)(n % 26 + 'A');
+            sb.append(c);
+
+            n /= 26;
+
         }
-        while (columnNumber != 0) {
-            deque.addFirst(""+(char)('A'+columnNumber%26));
-            columnNumber /= 26;
-        }
-        while (length != deque.size()) {
-            deque.addFirst(""+'A');
-        }
-        return String.join("", deque);
+
+        return sb.reverse().toString();
+
     }
 }
