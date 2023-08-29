@@ -1,10 +1,7 @@
 class Solution {
     public int minPathSum(int[][] grid) {
-        {
-            var row = grid[0];
-            for (int i=1; i<row.length; i++)
-                row[i] += row[i-1];
-        }
+        for (int i=1; i<grid[0].length; i++)
+            grid[0][i] += grid[0][i-1];
 
         for (int i=1; i<grid.length; i++)
             grid[i][0] += grid[i-1][0];
