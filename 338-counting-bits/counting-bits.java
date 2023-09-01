@@ -1,11 +1,15 @@
 class Solution {
     public int[] countBits(int n) {
-        var answer = new int[n+1];
-        var left = 1;
-        for (int i=0; i<=n; i++) {
-            if (i >> 1 == left) left <<= 1;
-            answer[i] = i > 1 ? 1 + answer[i-left] : i;
-        }
-        return answer;
+        int[] ans = new int[n+1];
+        helper(ans, 1, 1);
+        return ans;
+    }
+
+    private void helper(int[] ans, int bits, int i){
+        if(i>=ans.length) return;
+        ans[i] = bits;
+        i <<= 1;
+        helper(ans, bits, i);
+        helper(ans, bits+1, i+1);
     }
 }
