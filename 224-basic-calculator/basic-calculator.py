@@ -1,7 +1,6 @@
 class Solution:
     def calculate(self, s: str) -> int:
         def get_answer(start, end):
-            print(start, end)
             answer = 0
             ps = 0
             temp = []
@@ -31,6 +30,5 @@ class Solution:
                 i += 1
             if temp:
                 answer += int("".join(temp))
-            print("ANS", answer)
             return answer
         return get_answer(0, len(s))
