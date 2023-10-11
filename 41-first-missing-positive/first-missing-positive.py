@@ -1,9 +1,9 @@
 # 7:18
-# 
+# 7:22
 
 class Solution:
     def firstMissingPositive(self, nums: List[int]) -> int:
-        nums = {num for num in nums if num > 0}
+        nums = set(nums)
         answer = 1
         while answer in nums:
             answer += 1
