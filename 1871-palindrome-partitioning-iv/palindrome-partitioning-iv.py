@@ -1,23 +1,36 @@
+from collections import defaultdict
+
 class Solution:
     def checkPartitioning(self, s: str) -> bool:
+        def is_palindrome(start, end):
+            if start >= len(s):
+                return False
+            return s[start:end+1] == s[start:end+1][::-1]
 
-        firsts_end, thirds_start = [], []
-        
-        for i in range(len(s)):
-            if s[:i+1] == s[:i+1][::-1]:
-                firsts_end.append(i)
-        
-        for i in range(len(s)):
-            if s[i:] == s[i:][::-1]:
-                thirds_start.append(i)
-        
-        # check
-        for f in firsts_end:
-            for t in reversed(thirds_start):
-                second = s[f+1:t]
-                if second == '': break
-                if second == second[::-1]:
-                    return True
+        ss = []
+        for e in range(len(s)):
+            if is_palindrome(0, e):
+                ss.append(e+1)
 
-        # return 
-        return False 
+        e = len(s)-1
+
+        es = []
+        for st in range(len(s)):
+            if is_palindrome(st, e):
+                es.append(st-1)
+        
+        e_start = 0
+        for start in ss:
+            while e_start < len(es):
+                if es[e_start] >= start:
+                    break
+                e_start += 1
+            for x in range(e_start, len(es)):
+                end = es[x]
+                if is_palindrome(start, end):
+                     return True
+
+        return False
+
+
+        
