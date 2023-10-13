@@ -16,6 +16,7 @@ class Solution {
                 si = ssi++;
             }
         }
-        return pi == p.length() || p.substring(pi).length() == p.substring(pi).chars().filter(c -> c == '*').count();
+        while (pi < p.length() && p.charAt(pi) == '*') ++pi;
+        return pi == p.length();
     }
 }
