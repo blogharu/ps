@@ -1,15 +1,20 @@
 class Solution {
-    long MOD = 1000000007;
+    int MOD = 1000000007;
     public int numWays(int steps, int arrLen) {
-        long[][] counts = new long[2][arrLen+2];
+        int[][] counts = new int[2][arrLen];
         int cur = 0;
-        counts[cur][1] = 1;
+        counts[cur][0] = 1;
         for (int i = 0; i < steps; i++) {
-            for (int j = 1; j < Math.min(arrLen+1, steps-i+1); j++) {
-                counts[(cur+1)%2][j] = (counts[cur][j]+counts[cur][j-1]+counts[cur][j+1])%MOD;
+            int next = (cur+1)%2;
+            for (int j = 0; j < Math.min(arrLen, steps-i); j++) {
+                counts[next][j] = counts[cur][j];
+                if (j > 0) 
+                    counts[next][j] = (counts[next][j]+counts[cur][j-1]) % MOD;
+                if (j < arrLen-1) 
+                    counts[next][j] = (counts[next][j]+counts[cur][j+1]) % MOD;                
             }
-            cur = (cur+1)%2;
+            cur = next;
         }
-        return (int) counts[cur][1];
+        return counts[cur][0];
     }
 }
