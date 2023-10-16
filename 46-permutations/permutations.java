@@ -1,27 +1,28 @@
 class Solution {
-    int[] nums;
-    List<List<Integer>> answer = new ArrayList<>();
-    Set<Integer> unused = new HashSet<>();
-    Stack<Integer> temp = new Stack<>();
-    public void getAnswer(int n) {
-        if (n != 0) {
-            for (int i = 0; i < nums.length; i++) {
-                if (unused.contains(i)) {
-                    unused.remove(i);
-                    temp.push(nums[i]);
-                    getAnswer(n-1);
-                    temp.pop();
-                    unused.add(i);
-                }
-            }
-        }
-        else
-            answer.add(new ArrayList(temp));
-    }
     public List<List<Integer>> permute(int[] nums) {
-        this.nums = nums;
-        for (int i = 0; i < nums.length; i++) unused.add(i);
-        getAnswer(nums.length);
-        return answer;
+        List<List<Integer>> ans = new ArrayList<>();
+        function(ans, nums, 0);
+        return ans;
+    }
+
+    public void function(List<List<Integer>> ans, int[] arr, int start) {
+        if (start == arr.length) {
+            List<Integer> list = new ArrayList();
+            for (int i = 0; i < arr.length; i++) list.add(arr[i]);
+            ans.add(list);
+            return;
+        }
+
+        for (int i = start; i < arr.length; i++) {
+            swap(arr, start, i);
+            function(ans, arr, start + 1);
+            swap(arr, start, i);
+        }
+    }
+
+    public void swap(int[] arr, int a, int b) {
+        int temp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = temp;
     }
 }
