@@ -1,11 +1,11 @@
 class Solution {
+    List<List<Integer>> ans = new ArrayList<>();
     public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> ans = new ArrayList<>();
-        function(ans, nums, 0);
+        function(nums, 0);
         return ans;
     }
 
-    public void function(List<List<Integer>> ans, int[] arr, int start) {
+    public void function(int[] arr, int start) {
         if (start == arr.length) {
             List<Integer> list = new ArrayList();
             for (int i = 0; i < arr.length; i++) list.add(arr[i]);
@@ -15,7 +15,7 @@ class Solution {
 
         for (int i = start; i < arr.length; i++) {
             swap(arr, start, i);
-            function(ans, arr, start + 1);
+            function(arr, start + 1);
             swap(arr, start, i);
         }
     }
