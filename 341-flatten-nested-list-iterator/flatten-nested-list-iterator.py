@@ -19,27 +19,30 @@
 #        @return the nested list that this NestedInteger holds, if it holds a nested list
 #        Return None if this NestedInteger holds a single integer
 #        """
+
 from collections import deque
 
 class NestedIterator:
-    def set_deque(self, nestedList):
-        for ele in nestedList:
-            if ele.isInteger():
-                self.deque.append(ele.getInteger())
-            else:
-                self.set_deque(ele.getList())
-
     def __init__(self, nestedList: [NestedInteger]):
-        self.deque = deque()
-        self.set_deque(nestedList)
-        
-    def next(self) -> int:
-        return self.deque.popleft()
+        self.deque = deque(nestedList)
+        self.generator = self.get_generator()
 
+    def get_generator(self):
+        while self.deque:
+            ele = self.deque.popleft()
+            if ele.isInteger():
+                yield ele
+            else:
+                self.deque.extendleft(ele.getList()[::-1])
+
+    def next(self) -> int:
+        return next(self.generator).getInteger()
         
-    
     def hasNext(self) -> bool:
-        return len(self.deque) > 0
+        ele = next(self.generator, None)
+        if hasNext := ele is not None:
+            self.deque.appendleft(ele)            
+        return hasNext
          
 
 # Your NestedIterator object will be instantiated and called as such:
