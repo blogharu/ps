@@ -1,33 +1,36 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
-
-from collections import defaultdict
-
 class Solution:
     def findMode(self, root: Optional[TreeNode]) -> List[int]:
-        counts = defaultdict(int)
-        def dfs(node):
-            counts[node.val] += 1
-            if node.right:
-                dfs(node.right)
-            if node.left:
-                dfs(node.left)
-        dfs(root)
-        answer = []
-        max_count = -1
-        for val, count in counts.items():
-            if count == max_count:
-                answer.append(val)
-            elif count > max_count:
-                answer = [val]
-                max_count = count
-        return answer
+        max_streak = 0
+        curr_streak = 0
+        curr_num = 0
+        ans = []
+        
+        curr = root
+        while curr:
+            if curr.left:
+                friend = curr.left
+                while friend.right:
+                    friend = friend.right
+                
+                friend.right = curr
+                left = curr.left
+                curr.left = None
+                curr = left
+            else:
+                num = curr.val
+                if num == curr_num:
+                    curr_streak += 1
+                else:
+                    curr_streak = 1
+                    curr_num = num
 
+                if curr_streak > max_streak:
+                    ans = []
+                    max_streak = curr_streak
 
-
-
-            
+                if curr_streak == max_streak:
+                    ans.append(num)
+                
+                curr = curr.right
+        
+        return ans
