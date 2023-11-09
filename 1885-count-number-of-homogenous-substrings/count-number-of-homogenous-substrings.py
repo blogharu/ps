@@ -5,9 +5,12 @@ class Solution:
         answer = 0
         prev = ''
         count = 0
+        cache = {}
         for c in s:
             if c != prev:
-                answer = (answer + count * (count+1) // 2) % MOD
+                if count not in cache:
+                    cache[count] = count * (count+1) // 2
+                answer = (answer + cache[count]) % MOD
                 prev = c
                 count = 1
             else:
