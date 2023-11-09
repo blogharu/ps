@@ -9,7 +9,7 @@ class Solution:
         for c in s:
             if c != prev:
                 if count not in cache:
-                    cache[count] = count * (count+1) // 2
+                    cache[count] = (count * (count+1) // 2) % MOD
                 answer = (answer + cache[count]) % MOD
                 prev = c
                 count = 1
