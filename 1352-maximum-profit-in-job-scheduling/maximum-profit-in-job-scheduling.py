@@ -15,6 +15,6 @@ class Solution:
             start = starts[i]
             answer = get_answer(i+1)
             for end, value in jobs[start]:
-                answer = max(answer, get_answer(bisect_left(starts, end)) + value)
+                answer = max(answer, get_answer(bisect_left(starts, end, lo=i+1)) + value)
             return answer
         return get_answer(0)
